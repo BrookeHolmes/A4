@@ -1,0 +1,40 @@
+---
+title: "Regex"
+author: "Brooke Holmes"
+date: "01/02/2022"
+output:
+  pdf_document: default
+  html_document: default
+student number: 20049015
+gitHub username: BrookeHolmes
+---
+
+Loading library and data
+```{r}
+library(dplyr)
+MData<-read.csv("Data/measurements.csv")
+```
+
+Adding new column "Sp" that shortens the organisms name
+```{r}
+Sp = gsub("(?<=[A-Z])[^A-Z]+. ",". ", MData$Organism, perl = TRUE)
+MData<-mutate(MData, Organism, Limb.width, Limb.length, Observer, Sp)
+head(MData)
+```
+
+Replacing the Organism column with Sp
+```{r}
+MData <- select(MData, Sp, Limb.width, Limb.length, Observer)
+head(MData)
+```
+Saving the dataset as a new file: MeasShort.csv
+```{r}
+write.csv(MData, "MeasShort.csv")
+```
+
+
+
+
+
+
+
